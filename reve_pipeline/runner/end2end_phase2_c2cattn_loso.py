@@ -26,7 +26,9 @@ from reve_pipeline.common.c2c_attention import C2CAttention
 # =========================================================
 # CONFIG (A-C quick test)
 # =========================================================
-PARTICIPANTS_TXT = r"D:\ACADEMICS\datasets\alz-ftd-ctl\ds004504\derivatives\participants.txt"
+from common.paths import PARTICIPANTS_TXT
+with open(PARTICIPANTS_TXT) as f:
+    p = f.read()
 TARGET_LABELS = ["A", "C"]
 SEED = 42
 

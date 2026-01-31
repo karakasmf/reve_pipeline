@@ -1,24 +1,36 @@
 from pathlib import Path
 import os
 
-# Kodun olduğu repo kökü (git clone edilen yer)
+# =========================================================
+# Repo root (kodun olduğu yer)
+# common/paths.py ise: parents[2] -> repo kökü
+# =========================================================
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
-# Drive’daki kalıcı proje klasörün (ekrandaki klasör)
+# =========================================================
+# Kalıcı storage root (Colab Drive varsa burası)
+# Senin Drive yapın: /content/drive/MyDrive/alz-ftd-ctl-reve/
+# =========================================================
 DRIVE_PROJECT = Path("/content/drive/MyDrive/alz-ftd-ctl-reve")
 
-# Drive bağlıysa: veri/cache/results Drive'a, değilse repo içine
 if DRIVE_PROJECT.exists():
-    STORAGE_ROOT = DRIVE_PROJECT
+    STORAGE_ROOT = DRIVE_PROJECT          # Colab + Drive (kalıcı)
 else:
-    STORAGE_ROOT = REPO_ROOT
+    STORAGE_ROOT = REPO_ROOT              # Local / Drive yoksa
 
-# Kalıcı klasörler
-WINDOW_DIR = STORAGE_ROOT / "cache" / "windows"
+# =========================================================
+# Dizinler
+# =========================================================
 DATA_ROOT = STORAGE_ROOT / "data"
+WINDOW_DIR = STORAGE_ROOT / "cache" / "windows"
 RESULTS_ROOT = STORAGE_ROOT / "results"
 
-# Klasörleri oluştur
-WINDOW_DIR.mkdir(parents=True, exist_ok=True)
+# Sık kullanılan dosyalar (örnek)
+PARTICIPANTS_TXT = DATA_ROOT / "participants.txt"
+
+# =========================================================
+# Dizinleri oluştur
+# =========================================================
 DATA_ROOT.mkdir(parents=True, exist_ok=True)
+WINDOW_DIR.mkdir(parents=True, exist_ok=True)
 RESULTS_ROOT.mkdir(parents=True, exist_ok=True)
