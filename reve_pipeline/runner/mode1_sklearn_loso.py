@@ -33,9 +33,7 @@ with open(PARTICIPANTS_TXT) as f:
     p = f.read()
 
 TARGET_LABEL_SETS = [
-    ["A", "C"],
-    ["A", "F"],
-    ["A", "F", "C"],
+    ["A", "C"]
 ]
 SEED = 42
 
