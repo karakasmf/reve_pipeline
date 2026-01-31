@@ -1,32 +1,24 @@
 from pathlib import Path
 import os
 
-# -------------------------------------------------
-# Repo root (…/reve_pipeline)
-# -------------------------------------------------
+# Kodun olduğu repo kökü (git clone edilen yer)
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
-# -------------------------------------------------
-# Colab / Drive algılama
-# -------------------------------------------------
-IN_COLAB = os.path.exists("/content")
-DRIVE_ROOT = Path("/content/drive/MyDrive")
+# Drive’daki kalıcı proje klasörün (ekrandaki klasör)
+DRIVE_PROJECT = Path("/content/drive/MyDrive/alz-ftd-ctl-reve")
 
-if IN_COLAB and DRIVE_ROOT.exists():
-    # Colab + Drive (kalıcı)
-    BASE_ROOT = DRIVE_ROOT / REPO_ROOT.name
+# Drive bağlıysa: veri/cache/results Drive'a, değilse repo içine
+if DRIVE_PROJECT.exists():
+    STORAGE_ROOT = DRIVE_PROJECT
 else:
-    # Local / Colab (geçici)
-    BASE_ROOT = REPO_ROOT
+    STORAGE_ROOT = REPO_ROOT
 
-# -------------------------------------------------
-# Paths
-# -------------------------------------------------
-WINDOW_DIR = BASE_ROOT / "cache" / "windows"
-RESULTS_ROOT = BASE_ROOT / "results"
+# Kalıcı klasörler
+WINDOW_DIR = STORAGE_ROOT / "cache" / "windows"
+DATA_ROOT = STORAGE_ROOT / "data"
+RESULTS_ROOT = STORAGE_ROOT / "results"
 
-# -------------------------------------------------
-# Create dirs
-# -------------------------------------------------
+# Klasörleri oluştur
 WINDOW_DIR.mkdir(parents=True, exist_ok=True)
+DATA_ROOT.mkdir(parents=True, exist_ok=True)
 RESULTS_ROOT.mkdir(parents=True, exist_ok=True)
