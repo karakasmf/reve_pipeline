@@ -342,7 +342,7 @@ def infer_subject(
     return pred, prob
 
 
-def main():
+def main(TARGET_LABELS):
     set_seed(SEED)
 
     tag = "-".join(TARGET_LABELS)
@@ -536,4 +536,9 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    for TARGET_LABELS in TARGET_LABEL_SETS:
+        print("=" * 70)
+        print("Running TARGET_LABELS =", TARGET_LABELS)
+        print("=" * 70)
+        main(TARGET_LABELS)
+
