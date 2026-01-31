@@ -26,7 +26,7 @@ from reve_pipeline.common.reve_embed import load_reve, make_pos, extract_window_
 # =========================
 # QUICK TEST CONFIG (A-C)
 # =========================
-reve_pipeline..paths import PARTICIPANTS_TXT
+from reve_pipeline.common.paths import PARTICIPANTS_TXT
 with open(PARTICIPANTS_TXT) as f:
     p = f.read()
 
