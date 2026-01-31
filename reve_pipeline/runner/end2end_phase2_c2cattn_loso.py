@@ -29,7 +29,11 @@ from reve_pipeline.common.c2c_attention import C2CAttention
 from common.paths import PARTICIPANTS_TXT
 with open(PARTICIPANTS_TXT) as f:
     p = f.read()
-TARGET_LABELS = ["A", "C"]
+TARGET_LABEL_SETS = [
+    ["A", "C"],
+    ["A", "F"],
+    ["A", "F", "C"],
+]
 SEED = 42
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
