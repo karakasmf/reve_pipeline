@@ -32,12 +32,15 @@ from typing import List, Optional
 
 import numpy as np
 import mne
-
+from pathlib import Path
+from common.paths import DATA_ROOT, WINDOW_DIR
 # =========================
 # CONFIG (Edit these)
 # =========================
-DERIVATIVES_ROOT = r"D:\ACADEMICS\datasets\alz-ftd-ctl\ds004504\derivatives"
-OUT_DIR          = r"D:\REPOS\alz-ftd-ctl-reve\cache\windows"
+# Drive'da şunu bekliyoruz:
+# /content/drive/MyDrive/alz-ftd-ctl-reve/data/ds004504/derivatives
+DERIVATIVES_ROOT = DATA_ROOT   # sub-001, sub-002 ... direkt burada
+OUT_DIR = WINDOW_DIR
 
 # Windowing (used to generate multiple segments per subject)
 WIN_SEC   = 2.0
@@ -192,24 +195,24 @@ def sliding_window(x: np.ndarray, win_samp: int, step_samp: int) -> np.ndarray:
 
 def main():
     logger = setup_logger(VERBOSE)
-    os.makedirs(OUT_DIR, exist_ok=True)
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-    subjects = sorted([d for d in os.listdir(DERIVATIVES_ROOT) if d.startswith("sub-")])
+    subjects = sorted([p.name for p in DERIVATIVES_ROOT.iterdir() if p.is_dir() and p.name.startswith("sub-")])
     logger.info(f"Found {len(subjects)} subjects under derivatives.")
 
     canonical_ch_names: Optional[List[str]] = None
     ok, skipped = 0, 0
 
     for sub in subjects:
-        subj_dir = os.path.join(DERIVATIVES_ROOT, sub)
-        out_path = os.path.join(OUT_DIR, f"{sub}_windows.pkl")
+        subj_dir = DERIVATIVES_ROOT / sub
+        out_path = OUT_DIR / f"{sub}_windows.pkl"
 
-        if os.path.exists(out_path) and not OVERWRITE:
+        if out_path.exists() and not OVERWRITE:
             logger.info(f"[SKIP] cache exists: {sub}")
             skipped += 1
             continue
 
-        eeg_file = find_eeg_file(subj_dir)
+        eeg_file = find_eeg_file(str(subj_dir))
         if eeg_file is None:
             logger.warning(f"[SKIP] no EEG file: {sub}")
             skipped += 1
