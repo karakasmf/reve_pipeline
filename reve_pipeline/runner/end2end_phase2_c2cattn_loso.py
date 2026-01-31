@@ -26,7 +26,7 @@ from reve_pipeline.common.c2c_attention import C2CAttention
 # =========================================================
 # CONFIG (A-C quick test)
 # =========================================================
-from common.paths import PARTICIPANTS_TXT
+from reve_pipeline.common.paths import PARTICIPANTS_TXT
 with open(PARTICIPANTS_TXT) as f:
     p = f.read()
 TARGET_LABEL_SETS = [

@@ -28,7 +28,7 @@ from reve_pipeline.common.c2c_attention import C2CAttention
 # =========================
 # QUICK TEST CONFIG (A-C)
 # =========================
-from common.paths import PARTICIPANTS_TXT
+from reve_pipeline.common.paths import PARTICIPANTS_TXT
 with open(PARTICIPANTS_TXT) as f:
     p = f.read()
 
