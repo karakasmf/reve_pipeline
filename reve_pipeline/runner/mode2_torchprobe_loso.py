@@ -348,7 +348,7 @@ def main(TARGET_LABELS):
     )
     out = {"meta": asdict(meta), "global_metrics": metrics}
     with open(os.path.join(str(run_dir), "run_meta.json"), "w", encoding="utf-8") as f:
-        json.dump(out, f, indent=2)
+        json.dump(out, f, indent=2, default=str)
 
     print("=" * 78)
     print(f"[{tag}] DONE -> {run_dir}")
